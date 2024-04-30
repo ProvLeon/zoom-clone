@@ -33,6 +33,11 @@ const MeetingSetup = ({
 
   // https://getstream.io/video/docs/react/ui-cookbook/replacing-call-controls/
   const [isMicCamToggled, setIsMicCamToggled] = useState(false);
+  const [userName, setUserName] = useState('');
+
+  const storeName = () => {
+    sessionStorage.setItem('name', userName);
+  };
 
   useEffect(() => {
     if (isMicCamToggled) {
@@ -74,11 +79,17 @@ const MeetingSetup = ({
         </label>
         <DeviceSettings />
       </div>
+      <input
+        className="w-1/2 rounded-md border border-gray-300 px-2 py-1 text-sm text-black"
+        type="text"
+        onChange={(e) => setUserName(e.target.value)}
+        value={userName}
+      />
       <Button
         className="rounded-md bg-green-500 px-4 py-2.5"
         onClick={() => {
           call.join();
-
+          storeName();
           setIsSetupComplete(true);
         }}
       >

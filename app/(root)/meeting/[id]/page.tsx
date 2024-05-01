@@ -25,7 +25,7 @@ const MeetingPage = () => {
     setUserDetailsString(sessionStorage.getItem('userDetails') || null);
   }, []);
 
-  if (/*!isLoaded ||*/ isCallLoading) return <Loader />;
+  if (isCallLoading) return <Loader />;
 
   if (!call) return (
     <p className="text-center text-3xl font-bold text-white">

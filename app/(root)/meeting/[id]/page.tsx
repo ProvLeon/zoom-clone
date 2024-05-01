@@ -7,7 +7,7 @@ import { useParams } from 'next/navigation';
 import { Loader } from 'lucide-react';
 
 import { useGetCallById } from '@/hooks/useGetCallById';
-import Alert from '@/components/Alert';
+// import Alert from '@/components/Alert';
 import MeetingSetup from '@/components/MeetingSetup';
 import MeetingRoom from '@/components/MeetingRoom';
 import UserDetails from '@/components/UserDetails';
@@ -25,7 +25,7 @@ const MeetingPage = () => {
     setUserDetailsString(sessionStorage.getItem('userDetails') || null);
   }, []);
 
-  // if (!isLoaded || isCallLoading) return <Loader />;
+  if (/*!isLoaded ||*/ isCallLoading) return <Loader />;
 
   if (!call) return (
     <p className="text-center text-3xl font-bold text-white">

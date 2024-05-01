@@ -2,7 +2,7 @@
 
 import { ReactNode, useEffect, useState } from 'react';
 import { StreamVideoClient, StreamVideo } from '@stream-io/video-react-sdk';
-import { useUser } from '@clerk/nextjs';
+// import { useUser } from '@clerk/nextjs';
 
 import { tokenProvider } from '@/actions/stream.actions';
 import Loader from '@/components/Loader';
@@ -12,7 +12,7 @@ const API_KEY = process.env.NEXT_PUBLIC_STREAM_API_KEY;
 
 const StreamVideoProvider = ({ children }: { children: ReactNode }) => {
   const [videoClient, setVideoClient] = useState<StreamVideoClient>();
-  const { user, isLoaded } = useUser();
+  // const { user, isLoaded } = useUser();
   const [userDetailsString, setUserDetailsString] = useState<string | null>(null);
   useEffect(() => {
     setUserDetailsString(sessionStorage.getItem('userDetails') || null);
@@ -26,13 +26,13 @@ const StreamVideoProvider = ({ children }: { children: ReactNode }) => {
     if (userDetailsString) {
       const userDetails = JSON.parse(userDetailsString);
 
-      if (userDetails.id && userDetails.id !== user?.id){
+      if (userDetails.id){
       const client = new StreamVideoClient({
         apiKey: API_KEY,
         user: {
-          id: user?.id || userDetails.id,
+          id: userDetails.id,
           name: `${userDetails.firstName} (${userDetails.phone})`,
-          image: user?.imageUrl,
+          image: userDetails.imageUrl,
         },
         tokenProvider: async () => await tokenProvider(userDetails),
       });
@@ -43,7 +43,7 @@ const StreamVideoProvider = ({ children }: { children: ReactNode }) => {
       setUserDetailsString(null); // Ensure it's null to trigger the UserDetails component rendering
     }
   }
-  }, [user, isLoaded, userDetailsString]);
+}, [userDetailsString]);
 
   if (!videoClient) {
     if (!userDetailsString) {

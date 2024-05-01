@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useUser } from '@clerk/nextjs';
+// import { useUser } from '@clerk/nextjs';
 import { StreamCall, StreamTheme } from '@stream-io/video-react-sdk';
 import { useParams } from 'next/navigation';
 import { Loader } from 'lucide-react';
@@ -15,7 +15,7 @@ import UserDetails from '@/components/UserDetails';
 const MeetingPage = () => {
   const { id } = useParams();
   // const router = useRouter();
-  const { isLoaded, user } = useUser();
+  // const { isLoaded, user } = useUser();
   const { call, isCallLoading } = useGetCallById(id);
   const [isSetupComplete, setIsSetupComplete] = useState(false);
   const [userDetailsComplete, setUserDetailsComplete] = useState(false);
@@ -25,7 +25,7 @@ const MeetingPage = () => {
     setUserDetailsString(sessionStorage.getItem('userDetails') || null);
   }, []);
 
-  if (!isLoaded || isCallLoading) return <Loader />;
+  // if (!isLoaded || isCallLoading) return <Loader />;
 
   if (!call) return (
     <p className="text-center text-3xl font-bold text-white">
@@ -33,8 +33,8 @@ const MeetingPage = () => {
     </p>
   );
 
-  const notAllowed = call.type === 'invited' && (!user || !call.state.members.find((m) => m.user.id === user.id));
-  if (notAllowed) return <Alert title="You are not allowed to join this meeting" />;
+  // const notAllowed = call.type === 'invited' && (!user || !call.state.members.find((m) => m.user.id === user.id));
+  // if (notAllowed) return <Alert title="You are not allowed to join this meeting" />;
 
   if (!userDetailsComplete && !userDetailsString) {
     return <UserDetails onComplete={() => setUserDetailsComplete(true)} />;

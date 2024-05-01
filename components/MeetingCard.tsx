@@ -54,7 +54,7 @@ const MeetingCard = ({
               style={{ top: 0, left: index * 28 }}
             />
           ))}
-          <div className="flex-center absolute left-[136px] size-10 rounded-full border-[5px] border-slate-4 bg-slate-400 text-white">
+          <div className="flex-center absolute left-[136px] size-10 rounded-full border-[5px] border-slate-400 bg-slate-400 text-white">
             +5
           </div>
         </div>

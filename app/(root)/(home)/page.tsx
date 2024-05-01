@@ -1,7 +1,7 @@
 'use client';
 import MeetingTypeList from '@/components/MeetingTypeList';
-import { useEffect } from 'react';
-import { useRouter } from 'next/router';
+// import { useEffect } from 'react';
+// import { useRouter } from 'next/router';
 
 const Home = () => {
   const now = new Date();

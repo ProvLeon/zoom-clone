@@ -14,7 +14,7 @@ import UserDetails from '@/components/UserDetails';
 
 const MeetingPage = () => {
   const { id } = useParams();
-  const router = useRouter();
+  // const router = useRouter();
   const { isLoaded, user } = useUser();
   const { call, isCallLoading } = useGetCallById(id);
   const [isSetupComplete, setIsSetupComplete] = useState(false);

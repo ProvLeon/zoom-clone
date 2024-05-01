@@ -41,6 +41,8 @@ export default function RootLayout({
             colorInputText: "#000",
           },
         }}
+        afterSignInUrl="/"
+        afterSignUpUrl="/"
       >
         <body className={`${inter.className} bg-slate-200`}>
           <Toaster />

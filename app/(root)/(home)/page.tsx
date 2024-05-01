@@ -1,10 +1,23 @@
+'use client';
 import MeetingTypeList from '@/components/MeetingTypeList';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 const Home = () => {
   const now = new Date();
+  // const router = useRouter();
 
   const time = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
   const date = (new Intl.DateTimeFormat('en-US', { dateStyle: 'full' })).format(now);
+
+  // useEffect(() => {
+  //   if (router.pathname === '/') {
+  //     navigator.mediaDevices.getUserMedia({ audio: true, video: true })
+  //       .then(stream => {
+  //         stream.getTracks().forEach(track => track.stop());
+  //       });
+  //   }
+  // }, [router.pathname]);
 
   return (
     <section className="flex size-full flex-col gap-5 text-white">

@@ -10,6 +10,7 @@ import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
+
 export const metadata: Metadata = {
   title: "Agape Bible Teaching",
   description: "Video calling App",
@@ -18,9 +19,12 @@ export const metadata: Metadata = {
   },
 };
 
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: ReactNode }>) {
+
+
   return (
     <html lang="en">
       <ClerkProvider

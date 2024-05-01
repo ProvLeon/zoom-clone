@@ -19,22 +19,22 @@ const StreamVideoProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   useEffect(() => {
-    if (!isLoaded || !user) return;
+    // if (!isLoaded || !user) return;
     if (!API_KEY) throw new Error('Stream API key is missing');
     const userDetailsString = sessionStorage.getItem('userDetails');
-    console.log(`user object ${user.id} again ${userDetailsString}`);
+    // console.log(`user object ${user.id} again ${userDetailsString}`);
     if (userDetailsString) {
       const userDetails = JSON.parse(userDetailsString);
 
-      if (userDetails.id && userDetails.id !== user.id){
+      if (userDetails.id && userDetails.id !== user?.id){
       const client = new StreamVideoClient({
         apiKey: API_KEY,
         user: {
-          id: userDetails.id,
+          id: user?.id || userDetails.id,
           name: `${userDetails.firstName} (${userDetails.phone})`,
           image: user?.imageUrl,
         },
-        tokenProvider,
+        tokenProvider: async () => await tokenProvider(userDetails),
       });
 
       setVideoClient(client);

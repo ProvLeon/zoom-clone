@@ -13,14 +13,14 @@ interface UserDetailsProps {
 
 const UserDetails: React.FC<UserDetailsProps> = ({ onComplete }) => {
   const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  // const [lastName, setLastName] = useState('');
   const [phone, setPhone] = useState('');
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(`User Details: ${firstName} ${lastName}, Contact: ${phone}`);
+    console.log(`User Details: ${firstName}, Contact: ${phone}`);
     const id = uuidv4();
-    sessionStorage.setItem('userDetails', JSON.stringify({ id, firstName, lastName, phone }));
+    sessionStorage.setItem('userDetails', JSON.stringify({ id, firstName, phone }));
     onComplete();
   };
 

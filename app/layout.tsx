@@ -30,15 +30,15 @@ export default function RootLayout({
             logoImageUrl: "/icons/yoom-logo.svg",
           },
           variables: {
-            colorText: "#fff",
+            colorText: "#000",
             colorPrimary: "#0E78F9",
-            colorBackground: "#1C1F2E",
-            colorInputBackground: "#252A41",
-            colorInputText: "#fff",
+            colorBackground: "#fff",
+            colorInputBackground: "#fff",
+            colorInputText: "#000",
           },
         }}
       >
-        <body className={`${inter.className} bg-dark-2`}>
+        <body className={`${inter.className} bg-slate-200`}>
           <Toaster />
           {children}
         </body>

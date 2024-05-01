@@ -19,27 +19,32 @@
 }
 
 .str-video__participant-details {
-  color: white;
+  color:  white;
 }
 
 .str-video__menu-container {
-  color: white;
+  color:  white;
 }
 
 .str-video__notification {
-  color: white;
+  color:  white;
 }
 
 .str-video__participant-list {
-  background-color: #1c1f2e;
+  background-color: #b7c1f1;
   padding: 10px;
   border-radius: 10px;
-  color: white;
+  color: rgb(19, 18, 18);
   height: 100%;
 }
 
 .str-video__call-controls__button {
   height: 40px;
+}
+
+.str-video__call-controls__button .str-video__menu-toggle-button {
+  color:  white;
+  background-color: white;
 }
 
 .glassmorphism {
@@ -56,7 +61,7 @@
 /* ==== clerk class override ===== */
 
 .cl-userButtonPopoverActionButtonIcon {
-  color: white;
+  color:  rgb(19, 18, 18);
 }
 
 .cl-logoBox {
@@ -72,10 +77,10 @@
 }
 
 .cl-internal-wkkub3 {
-  color: white;
+  color:  rgb(19, 18, 18);
 }
 .cl-userButtonPopoverActionButton {
-  color: white;
+  color:  rgb(19, 18, 18);
 }
 
 /* =============================== */

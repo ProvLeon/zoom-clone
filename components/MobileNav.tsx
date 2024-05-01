@@ -20,10 +20,11 @@ const MobileNav = () => {
             width={36}
             height={36}
             alt="hamburger icon"
-            className="cursor-pointer sm:hidden"
+            className="cursor-pointer sm:hidden "
+            style={{ filter:'invert(100%)' }}
           />
         </SheetTrigger>
-        <SheetContent side="left" className="border-none bg-dark-1">
+        <SheetContent side="left" className="border-none bg-slate-100">
           <Link href="/" className="flex items-center gap-1">
             <Image
               src="/icons/logo.svg"
@@ -31,11 +32,11 @@ const MobileNav = () => {
               height={32}
               alt="yoom logo"
             />
-            <p className="text-[26px] font-extrabold text-white">YOOM</p>
+            <p className="text-[26px] font-extrabold text-dark-1">Agape Meeting Room</p>
           </Link>
           <div className="flex h-[calc(100vh-72px)] flex-col justify-between overflow-y-auto">
             <SheetClose asChild>
-              <section className=" flex h-full flex-col gap-6 pt-16 text-white">
+              <section className=" flex h-full flex-col gap-6 pt-16 text-dark-1">
                 {sidebarLinks.map((item) => {
                   const isActive = pathname === item.route;
 
@@ -56,6 +57,7 @@ const MobileNav = () => {
                           alt={item.label}
                           width={20}
                           height={20}
+                          style={{filter: isActive ? 'none' : 'invert(100%)'}}
                         />
                         <p className="font-semibold">{item.label}</p>
                       </Link>

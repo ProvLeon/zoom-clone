@@ -83,7 +83,7 @@ const MeetingRoom = () => {
                 >
                   {item}
                 </DropdownMenuItem>
-                <DropdownMenuSeparator className="border-dark-1" />
+                <DropdownMenuSeparator className="border-gray-200" />
               </div>
             ))}
           </DropdownMenuContent>

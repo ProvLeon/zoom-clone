@@ -7,9 +7,10 @@ export const useGetCallById = (id: string | string[]) => {
 
   const client = useStreamVideoClient();
 
+
   useEffect(() => {
     if (!client) return;
-    
+
     const loadCall = async () => {
       try {
         // https://getstream.io/video/docs/react/guides/querying-calls/#filters

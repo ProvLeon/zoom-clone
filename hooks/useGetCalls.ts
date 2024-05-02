@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react';
-import { useUser } from '@clerk/nextjs';
+// import { useUser } from '@clerk/nextjs';
 import { Call, useStreamVideoClient } from '@stream-io/video-react-sdk';
+import { getUserDetails } from '@/lib/utils';
 
 export const useGetCalls = () => {
-  const { user } = useUser();
+  // const { user } = useUser();
   const client = useStreamVideoClient();
   const [calls, setCalls] = useState<Call[]>();
   const [isLoading, setIsLoading] = useState(false);
+  const userDetails = getUserDetails();
 
   useEffect(() => {
     const loadCalls = async () => {
-      if (!client || !user?.id) return;
+      if (!client /* || !user?.id */ ) return;
 
       setIsLoading(true);
 
@@ -21,8 +23,8 @@ export const useGetCalls = () => {
           filter_conditions: {
             starts_at: { $exists: true },
             $or: [
-              { created_by_user_id: user.id },
-              { members: { $in: [user.id] } },
+              { created_by_user_id: /* user.id  */ userDetails.id},
+            { members: { $in: [ /* user.id */ userDetails.id] } },
             ],
           },
         });
@@ -36,7 +38,7 @@ export const useGetCalls = () => {
     };
 
     loadCalls();
-  }, [client, user?.id]);
+  }, [client, /* user?.id */ userDetails.id]);
 
   const now = new Date();
 

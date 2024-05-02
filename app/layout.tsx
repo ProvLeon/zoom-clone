@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import type { Metadata } from "next";
-// import { ClerkProvider } from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
 
 import "@stream-io/video-react-sdk/dist/css/styles.css";
@@ -27,7 +27,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      {/* <ClerkProvider
+      <ClerkProvider
         appearance={{
           layout: {
             socialButtonsVariant: "iconButton",
@@ -43,12 +43,12 @@ export default function RootLayout({
         }}
         afterSignInUrl="/"
         afterSignUpUrl="/"
-      > */}
+      >
         <body className={`${inter.className} bg-slate-200`}>
           <Toaster />
           {children}
         </body>
-      {/* </ClerkProvider> */}
+      </ClerkProvider>
     </html>
   );
 }

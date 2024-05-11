@@ -1,7 +1,6 @@
 'use client'
-import { useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import React from 'react'; // Added import for React
 
 const headers = {
   'Content-Type': 'application/json',

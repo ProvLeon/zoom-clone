@@ -2,7 +2,11 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import jwt from 'jsonwebtoken';
 import { OAuth2Client } from 'google-auth-library';
 import { PrismaClient } from '@prisma/client';
+import { TokenPayload } from 'google-auth-library';
 
+interface ExtendedTokenPayload extends TokenPayload {
+  image?: string;
+}
 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const googleClient = new OAuth2Client(GOOGLE_CLIENT_ID);
@@ -24,21 +28,23 @@ export const POST = async (req: NextApiRequest, res: NextApiResponse) => {
       return res.status(401).json({ message: 'Invalid Google token' });
     }
 
-    const { sub: googleId, email, name, picture } = payload;
+    const { sub: id = '', email = '', name = '', image = '' } = payload as ExtendedTokenPayload;
 
     let user = await prisma.user.findUnique({
       where: {
-        googleId,
+        id,
       },
     });
 
     if (!user) {
       user = await prisma.user.create({
         data: {
-          googleId,
+          id,
           email,
           name,
-          picture,
+          image,
+          password: 'defaultPassword', // Add a default or placeholder password
+          contact: 'defaultContact'   // Add a default or placeholder contact
         },
       });
     }

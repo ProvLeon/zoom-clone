@@ -26,6 +26,10 @@ import { cn } from '@/lib/utils';
 
 type CallLayoutType = 'grid' | 'speaker-left' | 'speaker-right';
 
+interface WakeLockSentinel extends EventTarget {
+  release(): Promise<void>;
+}
+
 const MeetingRoom = () => {
   const searchParams = useSearchParams();
   const isPersonalRoom = !!searchParams.get('personal');

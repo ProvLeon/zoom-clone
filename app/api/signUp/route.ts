@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { PrismaClient } from '@prisma/client';
@@ -14,14 +14,15 @@ interface SignUpRequestBody {
   image: string;
 }
 
-export const POST = async (req: NextApiRequest, res: NextApiResponse) => {
+export const POST = async (req: NextRequest, res: NextResponse) => {
   console.log('Request body:', req.body);
-  const { name, contact, email, password, image } = req.body as SignUpRequestBody;
+  const body = JSON.parse(JSON.stringify(req.body));
+  const { name, contact, email, password, image } = body as SignUpRequestBody;
   console.log('Email:', email);
   console.log('Password:', password);
 
   if (!email || !password) {
-    return Response.json({ message: 'Email and password are required' }, { status: 400 });
+    return new NextResponse(JSON.stringify({ message: 'Email and password are required' }), { status: 400 });
   }
 
   try {
@@ -32,7 +33,7 @@ export const POST = async (req: NextApiRequest, res: NextApiResponse) => {
     });
 
     if (existingUser) {
-      return Response.json({ message: 'Email already in use' }, { status: 409 });
+      return new NextResponse(JSON.stringify({ message: 'Email already in use' }), { status: 409 });
     }
 
     const hashedPassword = bcrypt.hashSync(password, 10);
@@ -51,9 +52,9 @@ export const POST = async (req: NextApiRequest, res: NextApiResponse) => {
       expiresIn: '1h',
     });
 
-    return Response.json({ message: 'Sign up successful', token, user: { email: newUser.email, id: newUser.id } }, { status: 201 });
+    return new NextResponse(JSON.stringify({ message: 'Sign up successful', token, user: { email: newUser.email, id: newUser.id } }), { status: 201 });
   } catch (error) {
     console.error('Error signing up:', error);
-    return Response.json({ message: 'Internal server error' }, { status: 500 });
+    return new NextResponse(JSON.stringify({ message: 'Internal server error' }), { status: 500 });
   }
 };

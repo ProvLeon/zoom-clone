@@ -1,4 +1,4 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { PrismaClient } from '@prisma/client';
@@ -6,9 +6,10 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 
-export const POST = async (req: NextApiRequest, res: NextApiResponse) => {
-  console.log('signIn')
-  const { email, password } = req.body;
+export const POST = async (req: NextRequest, res: NextResponse) => {
+  console.log('signIn');
+  const data = await (req.json());
+  const { email, password } = data;
   try {
     const user = await prisma.user.findUnique({
       where: {
@@ -17,21 +18,41 @@ export const POST = async (req: NextApiRequest, res: NextApiResponse) => {
     });
 
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return new NextResponse(JSON.stringify({ message: 'User not found' }), {
+        status: 404,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
     }
 
     const isPasswordValid = bcrypt.compareSync(password, user.password);
     if (!isPasswordValid) {
-      return res.status(401).json({ message: 'Invalid credentials' });
+      return new NextResponse(JSON.stringify({ message: 'Invalid credentials' }), {
+        status: 401,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
     }
 
     const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, {
       expiresIn: '1h',
     });
 
-    res.status(200).json({ message: 'Sign in successful', token, user: { email: user.email, id: user.id } });
+    return new NextResponse(JSON.stringify({ message: 'Sign in successful', token, user: { email: user.email, id: user.id } }), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   } catch (error) {
-    console.error('Error signing in:', error, res.status);
-    return res.status // res.status(500).json({ message: 'Internal server error' });
+    console.error('Error signing in:', error);
+    return new NextResponse(JSON.stringify({ message: 'Internal server error' }), {
+      status: 500,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   }
 };

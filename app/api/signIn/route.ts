@@ -32,6 +32,6 @@ export const POST = async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(200).json({ message: 'Sign in successful', token, user: { email: user.email, id: user.id } });
   } catch (error) {
     console.error('Error signing in:', error, res.status);
-    return res.status //res.status(500).json({ message: 'Internal server error' });
+    return res.status // res.status(500).json({ message: 'Internal server error' });
   }
 };

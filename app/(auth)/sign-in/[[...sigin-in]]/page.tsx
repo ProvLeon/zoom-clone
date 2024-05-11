@@ -1,12 +1,13 @@
 'use client'
 import { useState } from 'react';
 import axios from 'axios';
+import React from 'react';
 
 export default function SignInPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [googleToken, setGoogleToken] = useState('');
+  // const [googleToken, setGoogleToken] = useState('');
 
   const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,21 +26,21 @@ export default function SignInPage() {
     }
   };
 
-  const handleGoogleSignIn = async () => {
-    try {
-      const response = await axios.post('/api/googleSignIn', { token: googleToken });
-      if (response.status === 200) {
-        sessionStorage.setItem('token', response.data.token);
-        sessionStorage.setItem('userDetails', JSON.stringify(response.data.user));
-        window.location.href = '/';
-      } else {
-        setError('Failed to login with Google');
-      }
-    } catch (err) {
-      const error = err as { response?: { data: { message: string } } }
-      setError(error.response?.data?.message || 'An error occurred during Google login');
-    }
-  };
+  // const handleGoogleSignIn = async () => {
+  //   try {
+  //     const response = await axios.post('/api/googleSignIn', { token: googleToken });
+  //     if (response.status === 200) {
+  //       sessionStorage.setItem('token', response.data.token);
+  //       sessionStorage.setItem('userDetails', JSON.stringify(response.data.user));
+  //       window.location.href = '/';
+  //     } else {
+  //       setError('Failed to login with Google');
+  //     }
+  //   } catch (err) {
+  //     const error = err as { response?: { data: { message: string } } }
+  //     setError(error.response?.data?.message || 'An error occurred during Google login');
+  //   }
+  // };
 
   return (
     <main className="flex h-screen w-full items-center justify-center">
@@ -70,9 +71,9 @@ export default function SignInPage() {
         <button type="submit" className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
           Sign In
         </button>
-        <button type="button" onClick={handleGoogleSignIn} className="mt-4 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+        {/* <button type="button" onClick={handleGoogleSignIn} className="mt-4 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
           Sign In with Google
-        </button>
+        </button> */}
       </form>
     </main>
   );

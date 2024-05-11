@@ -3,12 +3,12 @@ import { useState } from 'react';
 import {
   CallControls,
   CallParticipantsList,
-  CallStatsButton,
+  // CallStatsButton,
   CallingState,
   PaginatedGridLayout,
   SpeakerLayout,
   useCallStateHooks,
-  useParticipantViewContext
+  // useParticipantViewContext
 } from '@stream-io/video-react-sdk';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Users, LayoutList } from 'lucide-react';
@@ -52,6 +52,35 @@ const MeetingRoom = () => {
         return <SpeakerLayout participantsBarPosition="right" />;
     }
   };
+
+  // Request a wake lock
+  let wakeLock: WakeLockSentinel | null = null;
+  const requestWakeLock = async () => {
+  try {
+    wakeLock = await navigator.wakeLock.request('screen');
+    wakeLock.addEventListener('release', () => {
+      console.log('Screen Wake Lock was released');
+    });
+    console.log('Screen Wake Lock is active');
+  } catch (err) {
+    if (err instanceof Error) {
+      console.error(`${err.name}, ${err.message}`);
+    } else {
+      console.error('An unknown error occurred');
+    }
+  }
+};
+
+// Call this function when the call starts
+requestWakeLock();
+
+// Don't forget to release the wake lock when the call ends
+window.addEventListener('visibilitychange', async () => {
+  if (wakeLock !== null && document.visibilityState === 'hidden') {
+    await wakeLock.release();
+    wakeLock = null;
+  }
+});
 
   return (
     <section className="relative h-screen w-full overflow-hidden pt-4 text-white">

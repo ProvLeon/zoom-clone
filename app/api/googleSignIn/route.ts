@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import jwt from 'jsonwebtoken';
-import { OAuth2Client } from 'google-auth-library';
+import { OAuth2Client, TokenPayload } from 'google-auth-library';
 import { PrismaClient } from '@prisma/client';
-import { TokenPayload } from 'google-auth-library';
 
 interface ExtendedTokenPayload extends TokenPayload {
   image?: string;

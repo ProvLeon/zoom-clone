@@ -12,8 +12,14 @@ import MeetingSetup from '@/components/MeetingSetup';
 import MeetingRoom from '@/components/MeetingRoom';
 import UserDetails from '@/components/UserDetails';
 
+interface Params {
+  id: string;
+  [key: string]: string;
+}
+
 const MeetingPage = () => {
-  const { id } = useParams();
+  console.log('params', useParams())
+  const { id } = useParams<Params>();
   // const router = useRouter();
   // const { isLoaded, user } = useUser();
   const { call, isCallLoading } = useGetCallById(id);
